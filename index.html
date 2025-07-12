@@ -12,6 +12,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
     
+    <!-- Google AdSense (add your own publisher ID) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script>
+    
     <style>
         :root {
             --primary: #4361ee;
@@ -51,6 +54,35 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+        
+        /* Ad Containers */
+        .ad-container {
+            width: 100%;
+            margin: 20px 0;
+            text-align: center;
+            background-color: white;
+            padding: 15px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .ad-banner {
+            width: 100%;
+            height: auto;
+            max-width: 728px;
+            margin: 0 auto;
+        }
+        
+        .ad-leaderboard {
+            width: 100%;
+            height: 90px;
+        }
+        
+        .ad-square {
+            width: 300px;
+            height: 250px;
+            margin: 0 auto;
         }
         
         /* Header Styles */
@@ -569,6 +601,48 @@
             .cta h2 {
                 font-size: 1.8rem;
             }
+            
+            .ad-square {
+                width: 100%;
+                height: auto;
+            }
+        }
+        
+        /* Ad Modal */
+        .ad-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .ad-modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+            text-align: center;
+        }
+        
+        .ad-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        .ad-modal-ad {
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -598,17 +672,49 @@
         </div>
     </header>
     
+    <!-- Top Banner Ad -->
+    <div class="container">
+        <div class="ad-container">
+            <!-- AdSense Leaderboard -->
+            <ins class="adsbygoogle ad-leaderboard"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                 data-ad-slot="YOUR_LEADERBOARD_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <h1>Your Ultimate <span>Online Toolkit</span> for Images & PDFs</h1>
             <p>Free, fast and secure tools to compress, convert, edit and optimize your files. No registration required.</p>
             <div class="hero-btns">
-                <a href="#" class="btn">Explore Tools</a>
-                <a href="#" class="btn btn-outline">How It Works</a>
+                <a href="#" class="btn" id="explore-tools-btn">Explore Tools</a>
+                <a href="#" class="btn btn-outline" id="how-it-works-btn">How It Works</a>
             </div>
         </div>
     </section>
+    
+    <!-- Middle Banner Ad -->
+    <div class="container">
+        <div class="ad-container">
+            <!-- AdSense Responsive Ad -->
+            <ins class="adsbygoogle ad-banner"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                 data-ad-slot="YOUR_BANNER_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
     
     <!-- Popular Tools Section -->
     <section class="section">
@@ -629,7 +735,7 @@
                         <h3>Image Compressor</h3>
                         <p>Reduce image file size without losing quality. Supports JPG, PNG, and WebP formats.</p>
                         <div class="tool-card-footer">
-                            <a href="/Tools/img-compress.html" class="tool-card-btn">Use Tool</a>
+                            <a href="/Tools/img-compress.html" class="tool-card-btn" data-tool-type="image" data-action="compress">Use Tool</a>
                             <span class="tool-card-tag">Image Tool</span>
                         </div>
                     </div>
@@ -644,7 +750,7 @@
                         <h3>PDF Compressor</h3>
                         <p>Make your PDF files smaller while preserving quality. Perfect for email attachments.</p>
                         <div class="tool-card-footer">
-                            <a href="/Tools/img-pdf-compression" class="tool-card-btn">Use Tool</a>
+                            <a href="/Tools/img-pdf-compression" class="tool-card-btn" data-tool-type="pdf" data-action="compress">Use Tool</a>
                             <span class="tool-card-tag">PDF Tool</span>
                         </div>
                     </div>
@@ -660,7 +766,7 @@
                         <h3>Image Converter</h3>
                         <p>Convert between JPG, PNG, WebP, GIF and more formats with just one click.</p>
                         <div class="tool-card-footer">
-                            <a href="/Tools/img-pdf-converter" class="tool-card-btn">Use Tool</a>
+                            <a href="/Tools/img-pdf-converter" class="tool-card-btn" data-tool-type="image" data-action="convert">Use Tool</a>
                             <span class="tool-card-tag">Image Tool</span>
                         </div>
                     </div>
@@ -675,7 +781,7 @@
                         <h3>PDF to JPG</h3>
                         <p>Convert PDF pages to high-quality JPG images. Extract images from PDF files.</p>
                         <div class="tool-card-footer">
-                            <a href="/Tools/img-pdf-converter" class="tool-card-btn">Use Tool</a>
+                            <a href="/Tools/img-pdf-converter" class="tool-card-btn" data-tool-type="pdf" data-action="convert">Use Tool</a>
                             <span class="tool-card-tag">PDF Tool</span>
                         </div>
                     </div>
@@ -683,10 +789,26 @@
             </div>
             
             <div style="text-align: center; margin-top: 40px;">
-                <a href="#" class="btn btn-outline">View All Tools</a>
+                <a href="#" class="btn btn-outline" id="view-all-tools-btn">View All Tools</a>
             </div>
         </div>
     </section>
+    
+    <!-- Square Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <!-- AdSense Square Ad -->
+            <ins class="adsbygoogle ad-square"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                 data-ad-slot="YOUR_SQUARE_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
     
     <!-- Categories Section -->
     <section class="section categories">
@@ -802,12 +924,28 @@
         </div>
     </section>
     
+    <!-- Bottom Banner Ad -->
+    <div class="container">
+        <div class="ad-container">
+            <!-- AdSense Responsive Ad -->
+            <ins class="adsbygoogle ad-banner"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                 data-ad-slot="YOUR_BANNER_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    
     <!-- Call to Action -->
     <div class="container">
         <div class="cta">
             <h2>Ready to Optimize Your Files?</h2>
             <p>Join thousands of satisfied users who trust our tools for their image and PDF needs.</p>
-            <a href="#" class="btn">Start Using Tools Now</a>
+            <a href="#" class="btn" id="start-using-btn">Start Using Tools Now</a>
         </div>
     </div>
     
@@ -873,6 +1011,28 @@
         </div>
     </footer>
     
+    <!-- Ad Modal -->
+    <div id="adModal" class="ad-modal">
+        <span class="ad-modal-close">&times;</span>
+        <div class="ad-modal-content">
+            <h3>Thanks for using our tool!</h3>
+            <p>Please consider supporting us by viewing this quick ad.</p>
+            <div class="ad-modal-ad">
+                <!-- AdSense Ad for Modal -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                     data-ad-slot="YOUR_MODAL_SLOT"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            <button id="continue-to-tool" class="btn">Continue to Tool</button>
+        </div>
+    </div>
+    
     <script>
         // Mobile menu toggle
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
@@ -895,6 +1055,98 @@
                 }
             });
         });
+        
+        // Ad Modal functionality
+        const adModal = document.getElementById('adModal');
+        const modalClose = document.querySelector('.ad-modal-close');
+        const continueToTool = document.getElementById('continue-to-tool');
+        let currentToolLink = '';
+        
+        // Function to show ad modal
+        function showAdModal(toolLink) {
+            currentToolLink = toolLink;
+            adModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Track this ad view in your analytics
+            console.log('Ad shown for tool:', toolLink);
+        }
+        
+        // Function to hide ad modal
+        function hideAdModal() {
+            adModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking X
+        modalClose.addEventListener('click', hideAdModal);
+        
+        // Close modal when clicking outside
+        adModal.addEventListener('click', function(e) {
+            if (e.target === adModal) {
+                hideAdModal();
+            }
+        });
+        
+        // Continue to tool after ad
+        continueToTool.addEventListener('click', function() {
+            hideAdModal();
+            if (currentToolLink) {
+                window.location.href = currentToolLink;
+            }
+        });
+        
+        // Track tool button clicks and show ads
+        document.querySelectorAll('.tool-card-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Only intercept if it's a download or convert action
+                const action = this.getAttribute('data-action');
+                if (action === 'convert' || action === 'compress') {
+                    e.preventDefault();
+                    const toolLink = this.getAttribute('href');
+                    
+                    // Show ad before proceeding (50% of the time for demo)
+                    // In production, you might want to always show or use a different logic
+                    if (Math.random() < 0.5) {
+                        showAdModal(toolLink);
+                    } else {
+                        window.location.href = toolLink;
+                    }
+                }
+            });
+        });
+        
+        // Track other important button clicks
+        document.getElementById('explore-tools-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Show ad 30% of the time for these buttons
+            if (Math.random() < 0.3) {
+                showAdModal(this.getAttribute('href'));
+            } else {
+                window.location.href = this.getAttribute('href');
+            }
+        });
+        
+        document.getElementById('view-all-tools-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (Math.random() < 0.3) {
+                showAdModal(this.getAttribute('href'));
+            } else {
+                window.location.href = this.getAttribute('href');
+            }
+        });
+        
+        document.getElementById('start-using-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (Math.random() < 0.3) {
+                showAdModal(this.getAttribute('href'));
+            } else {
+                window.location.href = this.getAttribute('href');
+            }
+        });
+        
+        // Initialize all AdSense ads
+        (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 </body>
 </html>
